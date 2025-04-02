@@ -29,4 +29,3 @@ def evaluate_cifar100_test(model, testloader, device):
     clean_accuracy = 100. * correct / total
     # print(f"Clean CIFAR-100 Test Accuracy: {clean_accuracy:.2f}%")
     return predictions, clean_accuracy
-
