@@ -243,7 +243,7 @@ def main():
     print(f"{model}\n")
 
     # The following code you can run once to find the batch size that gives you the fastest throughput.
-    # You only have to do this once for each machine you use, then you can just
+    # You only have to do this once for each machine yoru use, then you can just
     # set it in CONFIG.
     SEARCH_BATCH_SIZES = False
     if SEARCH_BATCH_SIZES:
@@ -274,31 +274,31 @@ def main():
     ############################################################################
     best_val_acc = 0.0
 
-    # for epoch in range(CONFIG["epochs"]):
-    #     train_loss, train_acc = train(epoch, model, trainloader, optimizer, criterion, CONFIG)
-    #     val_loss, val_acc = validate(model, valloader, criterion, CONFIG["device"])
-    #     scheduler.step()
+    for epoch in range(CONFIG["epochs"]):
+        train_loss, train_acc = train(epoch, model, trainloader, optimizer, criterion, CONFIG)
+        val_loss, val_acc = validate(model, valloader, criterion, CONFIG["device"])
+        scheduler.step()
 
-    #     # log to WandB
-    #     wandb.log({
-    #         "epoch": epoch + 1,
-    #         "train_loss": train_loss,
-    #         "train_acc": train_acc,
-    #         "val_loss": val_loss,
-    #         "val_acc": val_acc,
-    #         "lr": optimizer.param_groups[0]["lr"] # Log learning rate
-    #     })
+        # log to WandB
+        wandb.log({
+            "epoch": epoch + 1,
+            "train_loss": train_loss,
+            "train_acc": train_acc,
+            "val_loss": val_loss,
+            "val_acc": val_acc,
+            "lr": optimizer.param_groups[0]["lr"] # Log learning rate
+        })
 
-    #     # Save the best model (based on validation accuracy)
-    #     if val_acc > best_val_acc:
-    #         best_val_acc = val_acc
-    #         torch.save(model.state_dict(), "best_model.pth")
-    #         wandb.save("best_model.pth") # Save to wandb as well
-    #     # Save the model every 5 epochs
-    #     if (epoch + 1) % 5 == 0:
-    #         torch.save(model.state_dict(), f"model_epoch_{epoch+1}.pth")
-    #         wandb.save(f"model_epoch_{epoch+1}.pth")
-    #         print(f"Model saved at epoch {epoch+1}")
+        # Save the best model (based on validation accuracy)
+        if val_acc > best_val_acc:
+            best_val_acc = val_acc
+            torch.save(model.state_dict(), "best_model.pth")
+            wandb.save("best_model.pth") # Save to wandb as well
+        # Save the model every 5 epochs
+        if (epoch + 1) % 5 == 0:
+            torch.save(model.state_dict(), f"model_epoch_{epoch+1}.pth")
+            wandb.save(f"model_epoch_{epoch+1}.pth")
+            print(f"Model saved at epoch {epoch+1}")
 
     wandb.finish()
 
