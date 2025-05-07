@@ -1,6 +1,7 @@
 # python virtual environments
 .venv/
 __pycache__/
+venv/
 
 # data
 data/
@@ -9,7 +10,7 @@ data/
 wandb/
 
 # model checkpoints
-*.pth
+# *.pth
 experiments/
 
 # hidden files
