@@ -115,6 +115,41 @@ ssl._create_default_https_context = lambda: ssl.create_default_context(cafile=ce
 from torchvision.models import ResNet18_Weights
 ```
 
+## Repository Structure
+
+```
+.
+├── code/                          # Main codebase: training, evaluation, and utilities
+│   ├── eval_cifar100.py          # Evaluation script for CIFAR-100 dataset
+│   ├── eval_ood.py               # Evaluation script for out-of-distribution data (test set)
+│   ├── package_tests.ipynb       # Tests of package behavior
+│   ├── starter_code.py           # main functions. Training & testing codes
+│   └── utils.py                  # Helper functions: finding optimal batch sizes
+│
+├── models/                        # Trained model checkpoints
+│   ├── best_model.pth             # The same as model_epoch_20.pth
+│   ├── model_epoch_5.pth
+│   └── ... (other saved epochs)
+│
+├── submissions/                   # Submission CSV files for evaluation
+│   ├── sample_submission.csv
+│   ├── submission_ood.csv         # The same as the 3rd submission (with best_model)
+│   ├── submission_ood_1.csv       # 3 Submissions on Kaggle
+│   ├── submission_ood_2.csv
+│   └── submission_ood_3.csv
+│
+├── wandb_analysis/                # W&B visual analysis results
+│   ├── Wandb_ResNet_1.png
+│   └── Wandb_ResNet_2.png
+│
+├── .github/
+├── .gitignore
+├── requirements.txt              # List of Python dependencies
+├── README.md                     # Overview and documentation, midterm report
+└── midterm_challenge.code-workspace
+```
+
+
 ## Model Description
 
 For SimpleRNN, I wish to keep it "simple" so I did not put much parameters on it. ChatGPT gave me a network consisting of 2 convolutional layers and 2 fully-connected layers, and I think that was fair. Since this is a network processing images, adding fully-connected layers may be inefficient; I was thinking about adding another convolutional layer, but I noticed that the image size is small (32*32). I realized that adding another layer may break the characteristics in this simple CNN model, so I decided not to do it. Instead, I trimmed the model by decreasing the layer sizes of the convolutional layer, hoping it achieves similar accuracy while maintaining lighter size. 
@@ -133,7 +168,7 @@ For SimpleCNN, the code suggest me to use the biggest `batch_size = 512`, which 
 
 ## Regularization Techniques
 
-I did not use any regularization techniques for the first two parts. For Part 3 I used L2 regularization with `weight_decay = 1e-4` (which i s $\lambda$). I would prefer using dropouts other than L2 regularizations if I want regularization on SimpleCNN and ResNet18. 
+I did not use any regularization techniques for the first two parts. For Part 3 I used L2 regularization with `weight_decay = 1e-4` (which is $\lambda$). I would prefer using dropouts other than L2 regularizations if I want regularization on SimpleCNN and ResNet18. 
 
 ## Data Augmentation Strategy
 
